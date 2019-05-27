@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import "./style.css"
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { Ecmastris } from "./Ecmastris"
+import { GameConfig } from "./GameConfig"
+const { CANVAS_WIDTH, CANVAS_HEIGHT } = GameConfig
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const canvas = document.getElementById("canvas")
+canvas.width = CANVAS_WIDTH
+canvas.height = CANVAS_HEIGHT
+const ctx = canvas.getContext("2d")
+
+ctx.fillStyle = "white"
+ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
