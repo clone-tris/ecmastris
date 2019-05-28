@@ -1,13 +1,14 @@
 import "./style.css"
 
-import { Ecmastris } from "./Ecmastris"
 import { GameConfig } from "./GameConfig"
+import { Game } from "./framework/Game"
+import { Screen } from "./screens/game/Screen"
 const { CANVAS_WIDTH, CANVAS_HEIGHT } = GameConfig
 
-const canvas = document.getElementById("canvas")
-canvas.width = CANVAS_WIDTH
-canvas.height = CANVAS_HEIGHT
-const ctx = canvas.getContext("2d")
+const game =  Game.create({
+  width: CANVAS_WIDTH,
+  height: CANVAS_HEIGHT,
+  canvas: "#canvas",
+  screen: Screen
+})
 
-ctx.fillStyle = "white"
-ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
