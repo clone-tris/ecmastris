@@ -1,11 +1,14 @@
-import { Game } from "../../framework/Game"
 import { Painter } from "./Painter"
+import { Game } from "../../framework/Game"
 
 export class Screen {
-  painter = new Painter()
+  painter = new Painter({ width: Game.width, height: Game.height})
+  player = {
+    x: 0,
+    y: 0
+  }
   paint = () => {
-    // this.painter.ctx.fillStyle = "white"
-    this.painter.ctx.fillRect(0, 0, Game.width, Game.height)
-    // console.log(Game.width, Game.height)
+    this.painter.clear()
+    this.painter.paintPlayer(this.player)
   }
 }
