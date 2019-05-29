@@ -5,10 +5,9 @@ import { Game } from "./framework/Game"
 import { Screen } from "./screens/game/Screen"
 const { CANVAS_WIDTH, CANVAS_HEIGHT } = GameConfig
 
-const game =  Game.create({
+const game = Game({
   width: CANVAS_WIDTH,
   height: CANVAS_HEIGHT,
   canvas: "#canvas",
   screen: Screen
 })
-
