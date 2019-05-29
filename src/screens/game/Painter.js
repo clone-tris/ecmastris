@@ -18,8 +18,8 @@ export class Painter {
   paintPlayer(player) {
     this.ctx.fillStyle = "white"
 
-    // this.ctx.beginPath()
-    this.ctx.fillRect(10, 10, 10, 10)
-    // this.ctx.fill()
+    this.ctx.beginPath()
+    this.ctx.arc(75, 75, 50, 0, Math.PI * 2, false)
+    this.ctx.fill()
   }
 }
