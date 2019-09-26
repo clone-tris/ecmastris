@@ -33,7 +33,7 @@ function redraw() {
     screen.update(dt)
   }
   screen.paint()
-  ctx.drawImage(screen.painter.canvas, 0, 0, width, height)
+  ctx.drawImage(screen.paintCanvas(), 0, 0, width, height)
   lastFrameTimeMs = Date.now()
   return lastFrameTimeMs - t
 }
