@@ -1,26 +1,44 @@
 import { Config } from "./config"
+import { Square } from "./Square"
+import { ColorType } from "./colors"
+
+type ShapeProps = {
+  grid: Square[]
+  row: number
+  column: number
+  color: ColorType
+  width: number
+  height: number
+  computeHeight: boolean
+}
 
 export class Shape {
-  grid
-  row
-  column
-  set color(value) {
+  grid: Square[]
+  row: number
+  column: number
+  set color(value: ColorType) {
     this.grid.forEach(square => (square.color = value))
   }
-  width
-  height
-  computeHeight
+  width: number
+  height: number
+  computeHeight: boolean
 
-  constructor(grid = [], row, column, color, width = 0, height = 0, computeHeight = true) {
-    Object.assign(this, {
-      grid,
-      row,
-      column,
-      color,
-      width,
-      height,
-      computeHeight
-    })
+  constructor({
+    grid = [],
+    row,
+    column,
+    color,
+    width = 0,
+    height = 0,
+    computeHeight = true,
+  }: ShapeProps) {
+    this.grid = grid
+    this.row = row
+    this.column = column
+    this.color = color
+    this.width = width
+    this.height = height
+    this.computeHeight = computeHeight
   }
 
   computeSize() {

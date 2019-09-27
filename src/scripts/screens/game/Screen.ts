@@ -5,7 +5,7 @@ import { Screen as Playfield } from "./playfield/Screen"
 import { Screen as Sidebar } from "./sidebar/Screen"
 import { Config } from "./config"
 
-export class Screen extends GameScreen {
+export class Screen implements GameScreen {
   painter = new Painter({ width: Game.width, height: Game.height })
   playfield = new Playfield(Config.WAR_ZONE_WIDTH, Game.height)
   sidebar = new Sidebar(Config.SIDEBAR_WIDTH, Game.height)
