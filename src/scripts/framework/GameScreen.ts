@@ -4,10 +4,8 @@ export abstract class GameScreen {
   abstract paint: () => void
   abstract painter: GraphicsPainter
 
-
-  paintCanvas() {
-    this.paint()
-    return this.painter.buffer
+  canvas() {
+    return this.painter.canvas
   }
 
   update?: (dt: number) => void

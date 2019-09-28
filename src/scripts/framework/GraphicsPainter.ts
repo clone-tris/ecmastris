@@ -5,10 +5,11 @@ export type GraphicsPainterProps = {
 export class GraphicsPainter {
   width: number
   height: number
-  buffer = document.createElement("canvas")
-  ctx = this.buffer.getContext("2d")!
+  canvas = document.createElement("canvas")
+  ctx = this.canvas.getContext("2d")!
+
   constructor({ width, height }: GraphicsPainterProps) {
-    this.buffer.width = this.width = width
-    this.buffer.height = this.height = height
+    this.canvas.width = this.width = width
+    this.canvas.height = this.height = height
   }
 }
