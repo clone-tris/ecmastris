@@ -8,13 +8,14 @@ type GameProps = {
 }
 
 export class Game {
-   FRAME_RATE = 1000 / 60
-   lastFrameTimeMs = 0
-   running = true
-   width = 0
-   height = 0
-   screen: GameScreen
-   ctx: CanvasRenderingContext2D
+  FRAMES_PER_SECOND = 60
+  FRAME_SIZE = 1000 / this.FRAMES_PER_SECOND
+  lastFrameTimeMs = 0
+  running = true
+  width = 0
+  height = 0
+  screen: GameScreen
+  ctx: CanvasRenderingContext2D
 
   constructor({
     width,
@@ -29,23 +30,28 @@ export class Game {
     this.screen = new StartScreen()
   }
 
-   redraw = () => {
-    const t = Date.now()
-    const dt = t - this.lastFrameTimeMs
+  redraw = () => {
+    const beforeUpdate = Date.now()
+    const dt = beforeUpdate - this.lastFrameTimeMs
     if (this.screen.update && typeof this.screen.update === "function") {
       this.screen.update(dt)
     }
     this.screen.paint()
     this.ctx.drawImage(this.screen.canvas(), 0, 0, this.width, this.height)
-    this.lastFrameTimeMs = Date.now()
-    return this.lastFrameTimeMs - t
+    const afterPaint = Date.now()
+    this.lastFrameTimeMs = afterPaint
+    return afterPaint - beforeUpdate
   }
 
-   loop = () => {
+  loop = () => {
     if (!this.running) {
       return
     }
     const redrawDuration = this.redraw()
-    setTimeout(this.loop, Math.max(0, this.FRAME_RATE - redrawDuration))
+    const nextFrame = this.FRAME_SIZE - redrawDuration
+    const netFrameTime =
+      nextFrame <= 0
+        ? this.loop()
+        : setTimeout(this.loop, Math.max(0, nextFrame))
   }
 }

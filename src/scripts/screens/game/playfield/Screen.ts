@@ -7,8 +7,8 @@ export class Screen extends GameScreen {
     super()
     this.painter = new Painter({ width, height })
   }
+
   paint = () => {
-    this.painter.clear()
-    this.painter.paint()
+    this.painter.drawBackground()
   }
 }
