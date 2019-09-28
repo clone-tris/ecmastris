@@ -10,5 +10,6 @@ export class Screen extends GameScreen {
 
   paint = () => {
     this.painter.drawBackground()
+
   }
 }

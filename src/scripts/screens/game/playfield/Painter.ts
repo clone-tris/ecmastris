@@ -67,4 +67,77 @@ export class Painter extends GraphicsPainter {
     }
     this.ctx.stroke()
   }
+
+  drawSquareAt(row: number, column: number, color: ColorType) {
+    this.drawTetrominoSquare(
+      column * Config.SQUARE_WIDTH,
+      row * Config.SQUARE_WIDTH,
+      color
+    )
+  }
+
+  drawTetrominoSquare = (x: number, y: number, backgroundColor: ColorType) => {
+    this.ctx.fillStyle = backgroundColor
+    this.ctx.fillRect(x, y, Config.SQUARE_WIDTH, Config.SQUARE_WIDTH)
+
+    this.ctx.beginPath()
+    this.ctx.fillStyle = ShapeColors.BORDER_SIDE
+
+    // left
+    this.ctx.moveTo(x, y)
+    this.ctx.lineTo(
+      x + Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(
+      x + Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(x, y + Config.SQUARE_WIDTH)
+
+    // right
+    this.ctx.moveTo(x + Config.SQUARE_WIDTH, y)
+    this.ctx.lineTo(
+      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(
+      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(x + Config.SQUARE_WIDTH, y + Config.SQUARE_WIDTH)
+
+    this.ctx.fill()
+
+    this.ctx.beginPath()
+    this.ctx.fillStyle = ShapeColors.BORDER_TOP
+
+    this.ctx.moveTo(x, y)
+    this.ctx.lineTo(
+      x + Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(
+      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(x + Config.SQUARE_WIDTH, y)
+    this.ctx.fill()
+
+    this.ctx.beginPath()
+    this.ctx.fillStyle = ShapeColors.BORDER_BOTTOM
+
+    this.ctx.moveTo(x, y + Config.SQUARE_WIDTH)
+    this.ctx.lineTo(
+      x + Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(
+      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
+      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+    )
+    this.ctx.lineTo(x + Config.SQUARE_WIDTH, y + Config.SQUARE_WIDTH)
+
+    this.ctx.fill()
+  }
 }

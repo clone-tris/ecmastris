@@ -13,6 +13,9 @@ export enum ShapeColors {
   GREEN = "#6EEB47",
   PURPLE = "#9225E7",
   RED = "#DC2F20",
+  BORDER_TOP = "rgba(255, 255, 255, 0.7)",
+  BORDER_BOTTOM = "rgba(0, 0, 0, 0.5)",
+  BORDER_SIDE = "rgba(0, 0, 0, 0.1)",
 }
 
 export type ColorType = ShapeColors | UIColors | string
