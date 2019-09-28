@@ -19,24 +19,7 @@ export class Screen implements GameScreen {
   }
 
   canvas = () => {
-    const playfieldBuffer = this.playfield.painter.canvas
-    const sidebarBuffer = this.sidebar.painter.canvas
-
-    this.painter.ctx.drawImage(
-      sidebarBuffer,
-      0,
-      0,
-      Config.SIDEBAR_WIDTH,
-      GameConfig.CANVAS_HEIGHT
-    )
-    this.painter.ctx.drawImage(
-      playfieldBuffer,
-      Config.SIDEBAR_WIDTH,
-      0,
-      Config.WAR_ZONE_WIDTH,
-      GameConfig.CANVAS_HEIGHT
-    )
-
+    this.painter.stitch(this.sidebar.canvas(), this.playfield.canvas())
     return this.painter.canvas
   }
 }

@@ -8,7 +8,7 @@ type GameProps = {
 }
 
 export class Game {
-  FRAMES_PER_SECOND = 60
+  FRAMES_PER_SECOND = 120
   FRAME_SIZE = 1000 / this.FRAMES_PER_SECOND
   lastFrameTimeMs = 0
   running = true
@@ -28,6 +28,7 @@ export class Game {
     this.width = canvas.width = width
     this.height = canvas.height = height
     this.screen = new StartScreen()
+    this.lastFrameTimeMs = Date.now()
   }
 
   redraw = () => {
@@ -48,10 +49,12 @@ export class Game {
       return
     }
     const redrawDuration = this.redraw()
-    const nextFrame = this.FRAME_SIZE - redrawDuration
-    const netFrameTime =
-      nextFrame <= 0
-        ? this.loop()
-        : setTimeout(this.loop, Math.max(0, nextFrame))
+    const sleepDuration = this.FRAME_SIZE - redrawDuration
+
+    if (sleepDuration <= 0) {
+      this.loop()
+    } else {
+      setTimeout(this.loop, sleepDuration)
+    }
   }
 }

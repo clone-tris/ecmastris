@@ -9,5 +9,4 @@ export class Painter extends GraphicsPainter {
     this.ctx.fillStyle = UIColors.SIDEBAR_BACKGROUND
     this.ctx.fillRect(0, 0, this.width, this.height)
   }
-
 }

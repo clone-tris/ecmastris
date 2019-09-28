@@ -20,27 +20,51 @@ export class Painter extends GraphicsPainter {
     x2: number,
     y2: number,
     color: ColorType,
-    strokeWidth: number
+    strokeWidth: number,
+    standAlone = true
   ) => {
+    if (standAlone) {
+      this.ctx.beginPath()
+    }
     this.ctx.strokeStyle = color
     this.ctx.lineWidth = strokeWidth
     this.ctx.moveTo(x1, y1)
     this.ctx.lineTo(x2, y2)
-    this.ctx.stroke()
+    if (standAlone) {
+      this.ctx.stroke()
+    }
   }
 
   drawGuide = (bounds = new Rectangle(0, 0, this.width, this.height)) => {
     const puzzleHeight = bounds.height / Config.SQUARE_WIDTH
     const puzzleWidth = bounds.width / Config.SQUARE_WIDTH
 
+    this.ctx.beginPath()
     for (let i = 0; i <= puzzleHeight + 1; i++) {
       const y = bounds.x + i * Config.SQUARE_WIDTH
-      this.drawLine(bounds.x, y, bounds.x + bounds.width, y, UIColors.GUIDE, 1)
+      this.drawLine(
+        bounds.x,
+        y,
+        bounds.x + bounds.width,
+        y,
+        UIColors.GUIDE,
+        1,
+        false
+      )
     }
 
     for (let i = 0; i <= puzzleWidth + 1; i++) {
       const x = bounds.y + i * Config.SQUARE_WIDTH
-      this.drawLine(x, bounds.y, x, bounds.y + bounds.height, UIColors.GUIDE, 1)
+      this.drawLine(
+        x,
+        bounds.y,
+        x,
+        bounds.y + bounds.height,
+        UIColors.GUIDE,
+        1,
+        false
+      )
     }
+    this.ctx.stroke()
   }
 }
