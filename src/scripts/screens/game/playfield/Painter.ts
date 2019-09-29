@@ -3,6 +3,7 @@ import { ColorType, ShapeColors, UIColors } from "../colors"
 import { Rectangle } from "../../../framework/utils/Rectangle"
 import { Config } from "../config"
 import { Shape } from "../Shape"
+import { GameConfig } from "../../../GameConfig"
 
 export class Painter extends GraphicsPainter {
   drawBackground = () => {
@@ -24,15 +25,17 @@ export class Painter extends GraphicsPainter {
       this.drawSquareAt(row + square.row, column + square.column, square.color)
     )
 
-    // if (DEBUG_GRAPHICS) {
-    //   g.color = Color.BLUE
-    //   g.drawRect(
-    //     column * SQUARE_WIDTH,
-    //     row * SQUARE_WIDTH,
-    //     shape.width * SQUARE_WIDTH,
-    //     shape.height * SQUARE_WIDTH
-    //   )
-    // }
+    if (GameConfig.DEBUG_GRAPHICS) {
+      this.ctx.strokeStyle = ShapeColors.BLUE
+      this.ctx.strokeRect(
+        column * Config.SQUARE_WIDTH,
+        row * Config.SQUARE_WIDTH,
+        shape.width * Config.SQUARE_WIDTH,
+        shape.height * Config.SQUARE_WIDTH
+      )
+
+      this.ctx.stroke()
+    }
   }
 
   drawLine(

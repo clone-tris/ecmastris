@@ -45,6 +45,10 @@ export class Shape {
     this.width = width
     this.height = height
     this.computeHeight = computeHeight
+
+    if(computeHeight) {
+      this.computeSize()
+    }
   }
 
   computeSize() {
