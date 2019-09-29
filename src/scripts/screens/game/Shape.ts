@@ -7,17 +7,22 @@ type ShapeProps = {
   row: number
   column: number
   color: ColorType
-  width: number
-  height: number
-  computeHeight: boolean
+  width?: number
+  height?: number
+  computeHeight?: boolean
 }
 
 export class Shape {
   grid: Square[]
   row: number
   column: number
+  _color: ColorType
   set color(value: ColorType) {
+    this._color = value
     this.grid.forEach(square => (square.color = value))
+  }
+  get color() {
+    return this._color
   }
   width: number
   height: number
@@ -36,6 +41,7 @@ export class Shape {
     this.row = row
     this.column = column
     this.color = color
+    this._color = color
     this.width = width
     this.height = height
     this.computeHeight = computeHeight
@@ -64,5 +70,13 @@ export class Shape {
 
     this.height = maxRow - minRow + 1
     this.width = maxColumn - minColumn + 1
+  }
+
+  toString() {
+    return `{ grid: ${this.grid}, row: ${this.row}, column: ${
+      this.column
+    }, color: "${this.color}", width: ${this.width}, height: ${
+      this.height
+    }, computeHeight: ${this.computeHeight} }`
   }
 }

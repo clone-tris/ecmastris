@@ -2,6 +2,7 @@ import { GraphicsPainter } from "../../../framework/GraphicsPainter"
 import { ColorType, ShapeColors, UIColors } from "../colors"
 import { Rectangle } from "../../../framework/utils/Rectangle"
 import { Config } from "../config"
+import { Shape } from "../Shape"
 
 export class Painter extends GraphicsPainter {
   drawBackground = () => {
@@ -14,7 +15,27 @@ export class Painter extends GraphicsPainter {
     this.ctx.fillRect(0, 0, this.width, this.height)
   }
 
-  drawLine = (
+  drawShape(
+    shape: Shape,
+    row: number = shape.row,
+    column: number = shape.column
+  ) {
+    shape.grid.forEach(square =>
+      this.drawSquareAt(row + square.row, column + square.column, square.color)
+    )
+
+    // if (DEBUG_GRAPHICS) {
+    //   g.color = Color.BLUE
+    //   g.drawRect(
+    //     column * SQUARE_WIDTH,
+    //     row * SQUARE_WIDTH,
+    //     shape.width * SQUARE_WIDTH,
+    //     shape.height * SQUARE_WIDTH
+    //   )
+    // }
+  }
+
+  drawLine(
     x1: number,
     y1: number,
     x2: number,
@@ -22,7 +43,7 @@ export class Painter extends GraphicsPainter {
     color: ColorType,
     strokeWidth: number,
     standAlone = true
-  ) => {
+  ) {
     if (standAlone) {
       this.ctx.beginPath()
     }
@@ -35,7 +56,7 @@ export class Painter extends GraphicsPainter {
     }
   }
 
-  drawGuide = (bounds = new Rectangle(0, 0, this.width, this.height)) => {
+  drawGuide(bounds = new Rectangle(0, 0, this.width, this.height)) {
     const puzzleHeight = bounds.height / Config.SQUARE_WIDTH
     const puzzleWidth = bounds.width / Config.SQUARE_WIDTH
 
@@ -67,7 +88,6 @@ export class Painter extends GraphicsPainter {
     }
     this.ctx.stroke()
   }
-
   drawSquareAt(row: number, column: number, color: ColorType) {
     this.drawTetrominoSquare(
       column * Config.SQUARE_WIDTH,
@@ -75,8 +95,7 @@ export class Painter extends GraphicsPainter {
       color
     )
   }
-
-  drawTetrominoSquare = (x: number, y: number, backgroundColor: ColorType) => {
+  drawTetrominoSquare(x: number, y: number, backgroundColor: ColorType) {
     this.ctx.fillStyle = backgroundColor
     this.ctx.fillRect(x, y, Config.SQUARE_WIDTH, Config.SQUARE_WIDTH)
 

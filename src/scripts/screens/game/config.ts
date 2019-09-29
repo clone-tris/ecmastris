@@ -11,5 +11,5 @@ export const Config = Object.freeze({
   PUZZLE_WIDTH,
   PUZZLE_HEIGHT,
   SIDEBAR_WIDTH,
-  WAR_ZONE_WIDTH
+  WAR_ZONE_WIDTH,
 })

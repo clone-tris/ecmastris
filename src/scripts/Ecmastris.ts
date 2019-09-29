@@ -1,3 +1,4 @@
+import "./framework/bootstrap"
 import "../styles/style.css"
 
 import { GameConfig } from "./GameConfig"

@@ -1,23 +1,21 @@
 import { ColorType, UIColors } from "./colors"
 
-type SquareProps = {
-  row: number
-  column: number
-  color: ColorType
-}
-
 export class Square {
   row: number
   column: number
   color: ColorType
 
-  constructor({
-    row,
-    column,
-    color = UIColors.DEFAULT_SQUARE_COLOR,
-  }: SquareProps) {
+  constructor(
+    row: number,
+    column: number,
+    color: ColorType = UIColors.DEFAULT_SQUARE_COLOR
+  ) {
     this.row = row
     this.column = column
     this.color = color
+  }
+
+  toString() {
+    return `{row: ${this.row}, column: ${this.column}, color: "${this.color}"}`
   }
 }
