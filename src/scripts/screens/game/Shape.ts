@@ -1,12 +1,12 @@
 import { Config } from "./config"
 import { Square } from "./Square"
-import { ColorType } from "./colors"
+import { ColorType, ShapeColors } from "./colors"
 
 type ShapeProps = {
   grid: Square[]
-  row: number
-  column: number
-  color: ColorType
+  row?: number
+  column?: number
+  color?: ColorType
   width?: number
   height?: number
   computeHeight?: boolean
@@ -30,9 +30,9 @@ export class Shape {
 
   constructor({
     grid = [],
-    row,
-    column,
-    color,
+    row = 0,
+    column = 0,
+    color = ShapeColors.DEFAULT_SQUARE_COLOR,
     width = 0,
     height = 0,
     computeHeight = true,
@@ -46,7 +46,7 @@ export class Shape {
     this.height = height
     this.computeHeight = computeHeight
 
-    if(computeHeight) {
+    if (computeHeight) {
       this.computeSize()
     }
   }
