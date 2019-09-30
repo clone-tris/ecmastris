@@ -1,4 +1,4 @@
-import { ColorType, UIColors } from "./colors"
+import { ColorType, ShapeColors } from "./colors"
 
 export class Square {
   row: number
@@ -8,11 +8,15 @@ export class Square {
   constructor(
     row: number,
     column: number,
-    color: ColorType = UIColors.DEFAULT_SQUARE_COLOR
+    color: ColorType = ShapeColors.DEFAULT_SQUARE_COLOR
   ) {
     this.row = row
     this.column = column
     this.color = color
+  }
+
+  copy(override: Partial<Square> = {}) {
+    return { ...this, ...override }
   }
 
   toString() {

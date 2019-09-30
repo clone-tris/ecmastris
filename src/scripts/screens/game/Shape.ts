@@ -76,6 +76,70 @@ export class Shape {
     this.width = maxColumn - minColumn + 1
   }
 
+  copy() {
+    return {
+      ...this,
+      grid: this.grid.map(square => square.copy()),
+    }
+  }
+
+  collidesWith(b: Shape): Boolean {
+    return this.absoluteGrid().some(cellA =>
+      b
+        .absoluteGrid()
+        .some(cellB => cellB.row === cellA.row && cellB.column === cellA.column)
+    )
+  }
+
+  rotate() {
+    this.grid = this.grid.map(square =>
+      square.copy({ row: square.column, column: this.height - square.row - 1 })
+    )
+    this.computeSize()
+  }
+
+  move(rowDirection: number, columnDirection: number) {
+    this.row += rowDirection
+    this.column += columnDirection
+  }
+
+  withinBounds(): Boolean {
+    const absoluteMatrix = this.absoluteGrid()
+
+    const afterRight = absoluteMatrix.some(
+      square => square.column >= Config.PUZZLE_WIDTH
+    )
+    if (afterRight) {
+      return false
+    }
+
+    const bellowBottom = absoluteMatrix.some(
+      square => square.row >= Config.PUZZLE_HEIGHT
+    )
+    if (bellowBottom) {
+      return false
+    }
+
+    const beforeLeft = absoluteMatrix.some(square => square.column < 0)
+    if (beforeLeft) {
+      return false
+    }
+
+    return true
+  }
+
+  absoluteGrid(
+    translateRow: number = 0,
+    translateColumn: number = 0
+  ): Array<Square> {
+    return this.grid.map(square =>
+      square.copy({
+        row: square.row + this.row + translateRow,
+        column: square.column + this.column + translateColumn,
+      })
+    )
+  }
+
   toString() {
     return `{ grid: ${this.grid}, row: ${this.row}, column: ${
       this.column
