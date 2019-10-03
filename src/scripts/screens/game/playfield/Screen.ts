@@ -3,7 +3,7 @@ import { Painter } from "./Painter"
 import { randomTetromino } from "../Tetromino"
 import { Shape } from "../Shape"
 import { Config } from "../config"
-import { Score } from "../Score"
+import { resetScore, Score } from "../Score"
 
 export class Screen extends GameScreen {
   painter: Painter
@@ -79,12 +79,13 @@ export class Screen extends GameScreen {
 
     Score.total += points
     Score.linesCleared += linesRemoved
-    Score.level = Score.linesCleared / 10
+    Score.level = (Score.linesCleared / 10) | 0
   }
 
   restart() {
     this.opponent.eraseGrid()
     this.player = randomTetromino()
+    resetScore()
   }
 
   spawnPlayer() {

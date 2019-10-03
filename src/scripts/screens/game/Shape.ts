@@ -79,19 +79,20 @@ export class Shape {
 
   removeFullLines(): number {
     const fullRows = this.findFullRows()
-    const fullRowsArray = Object.values(fullRows)
+    const fullRowsArray = Object.keys(fullRows)
     if (!fullRowsArray.length) {
       return 0
     }
 
-    this.grid.reduce(
+    this.grid = this.grid.reduce(
       (acc, square) => {
+        // skipping square.row as it is part of the full rows
         if (fullRows[square.row]) {
           return acc
         }
-
+        const squareRowBeforeShifting = square.row
         fullRowsArray.forEach(fullRow => {
-          if (fullRow > square.row) {
+          if (Number(fullRow) > squareRowBeforeShifting) {
             square.row++
           }
         })

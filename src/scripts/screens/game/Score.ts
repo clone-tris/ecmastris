@@ -1,7 +1,7 @@
 const initialScore = {
   linesCleared: 0,
   total: 0,
-  level: 0,
+  level: 1,
 }
 
 export const Score = {
