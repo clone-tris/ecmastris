@@ -2,6 +2,7 @@ export enum UIColors {
   BACKGROUND = "#333333",
   SIDEBAR_BACKGROUND = "#545454",
   GUIDE = "#555555",
+  WHITE_TEXT = "#FFFFFF",
 }
 
 export enum ShapeColors {

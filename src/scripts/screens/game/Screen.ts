@@ -11,7 +11,11 @@ export class Screen implements GameScreen {
     height: GameConfig.CANVAS_HEIGHT,
   })
   playfield = new Playfield(Config.WAR_ZONE_WIDTH, GameConfig.CANVAS_HEIGHT)
-  sidebar = new Sidebar(Config.SIDEBAR_WIDTH, GameConfig.CANVAS_HEIGHT)
+  sidebar = new Sidebar(
+    Config.SIDEBAR_WIDTH,
+    GameConfig.CANVAS_HEIGHT,
+    this.playfield.nextPlayer
+  )
   nextFall = 0
   wasAnimating = false
   playerIsFalling = false
@@ -103,7 +107,7 @@ export class Screen implements GameScreen {
     const ableToMove = this.playfield.fallDown()
     if (!ableToMove && this.playfield.onFloor) {
       this.nextFall = this.playfield.endOfLock
-      // this.sidebar.nextPlayer = this.playfield.nextPlayer
+      this.sidebar.nextPlayer = this.playfield.nextPlayer
     }
     this.playerIsFalling = false
   }

@@ -6,12 +6,12 @@ import { Shape } from "../Shape"
 import { GameConfig } from "../../../GameConfig"
 
 export class Painter extends GraphicsPainter {
-  drawBackground = () => {
+  drawBackground() {
     this.clear()
     this.drawGuide()
   }
 
-  clear = () => {
+  clear() {
     this.ctx.fillStyle = UIColors.BACKGROUND
     this.ctx.fillRect(0, 0, this.width, this.height)
   }
@@ -34,27 +34,6 @@ export class Painter extends GraphicsPainter {
         shape.height * Config.SQUARE_WIDTH
       )
 
-      this.ctx.stroke()
-    }
-  }
-
-  drawLine(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    color: ColorType,
-    strokeWidth: number,
-    standAlone = true
-  ) {
-    if (standAlone) {
-      this.ctx.beginPath()
-    }
-    this.ctx.strokeStyle = color
-    this.ctx.lineWidth = strokeWidth
-    this.ctx.moveTo(x1, y1)
-    this.ctx.lineTo(x2, y2)
-    if (standAlone) {
       this.ctx.stroke()
     }
   }
