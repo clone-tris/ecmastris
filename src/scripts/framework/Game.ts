@@ -16,6 +16,7 @@ export class Game {
   height = 0
   screen: GameScreen
   ctx: CanvasRenderingContext2D
+  canvas: HTMLCanvasElement
 
   constructor({
     width,
@@ -24,11 +25,13 @@ export class Game {
     screen: StartScreen,
   }: GameProps) {
     let canvas = document.querySelector<HTMLCanvasElement>(canvasID)!
+    this.canvas = canvas
     this.ctx = canvas.getContext("2d")!
     this.width = canvas.width = width
     this.height = canvas.height = height
     this.screen = new StartScreen()
     this.lastFrameTimeMs = Date.now()
+    window.addEventListener("keydown", this.screen.keydown, false)
   }
 
   redraw = () => {

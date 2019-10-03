@@ -9,7 +9,7 @@ export class Screen extends GameScreen {
   painter: Painter
   player: Shape = randomTetromino()
   nextPlayer: Shape = randomTetromino()
-  fallRate = 100
+  fallRate = 1000
   floorRate = 500
   onFloor = false
   endOfLock = 0

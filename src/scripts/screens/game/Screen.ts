@@ -43,6 +43,39 @@ export class Screen implements GameScreen {
     }
   }
 
+  keydown = (e: KeyboardEvent) => {
+    if (this.paused) {
+      switch (e.code) {
+        case "KeyP":
+          this.togglePaused()
+      }
+    } else {
+      switch (e.code) {
+        case "KeyW":
+          this.playfield.rotatePlayer()
+          break
+        case "KeyS":
+          this.handlePlayerFalling()
+          break
+        case "KeyA":
+          this.playfield.moveLeft()
+          break
+        case "KeyD":
+          this.playfield.moveRight()
+          break
+        case "KeyR":
+          this.playfield.restart()
+          break
+        case "KeyI":
+          this.playfield.inspect = true
+          break
+        case "KeyP":
+          this.togglePaused()
+          break
+      }
+    }
+  }
+
   togglePaused() {
     this.paused = !this.paused
     const time = Date.now()
