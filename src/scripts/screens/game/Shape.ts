@@ -1,6 +1,7 @@
 import { Config } from "./config"
 import { Square } from "./Square"
 import { ColorType, ShapeColors } from "./colors"
+import { ObjectType } from "../../types"
 
 type ShapeProps = {
   grid: Square[]
@@ -76,11 +77,57 @@ export class Shape {
     this.width = maxColumn - minColumn + 1
   }
 
-  copy() {
-    return {
-      ...this,
-      grid: this.grid.map(square => square.copy()),
+  removeFullLines(): number {
+    const fullRows = this.findFullRows()
+    const fullRowsArray = Object.values(fullRows)
+    if (!fullRowsArray.length) {
+      return 0
     }
+
+    this.grid.reduce(
+      (acc, square) => {
+        if (fullRows[square.row]) {
+          return acc
+        }
+
+        fullRowsArray.forEach(fullRow => {
+          if (fullRow > square.row) {
+            square.row++
+          }
+        })
+
+        acc.push(square)
+
+        return acc
+      },
+      [] as Square[]
+    )
+
+    return fullRowsArray.length
+  }
+
+  findFullRows(): ObjectType {
+    const fullRows: ObjectType = {}
+    const rowDensity = { ...Array.from({ length: this.height }, () => 0) }
+    this.grid.forEach(square => {
+      rowDensity[square.row] = rowDensity[square.row] + 1
+      if (rowDensity[square.row] === Config.PUZZLE_WIDTH) {
+        fullRows[square.row] = true
+      }
+    })
+    return fullRows
+  }
+
+  copy() {
+    const props = Object.assign(
+      Object.create(Object.getPrototypeOf(this)),
+      this
+    )
+    return new Shape(props)
+  }
+
+  merge(shape: Shape) {
+    this.grid = [...this.absoluteGrid(), ...shape.absoluteGrid()]
   }
 
   collidesWith(b: Shape): Boolean {
@@ -146,5 +193,9 @@ export class Shape {
     }, color: "${this.color}", width: ${this.width}, height: ${
       this.height
     }, computeHeight: ${this.computeHeight} }`
+  }
+
+  eraseGrid() {
+    this.grid = []
   }
 }

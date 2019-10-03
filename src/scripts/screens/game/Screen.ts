@@ -12,6 +12,11 @@ export class Screen implements GameScreen {
   })
   playfield = new Playfield(Config.WAR_ZONE_WIDTH, GameConfig.CANVAS_HEIGHT)
   sidebar = new Sidebar(Config.SIDEBAR_WIDTH, GameConfig.CANVAS_HEIGHT)
+  nextFall = 0
+  wasAnimating = false
+  playerIsFalling = false
+  paused = false
+  remainingAfterPaused = 0
 
   paint = () => {
     this.playfield.paint()
@@ -21,5 +26,52 @@ export class Screen implements GameScreen {
   canvas = () => {
     this.painter.stitch(this.sidebar.canvas(), this.playfield.canvas())
     return this.painter.canvas
+  }
+
+  update(dt: number) {
+    if (this.paused || this.playfield.gameEnded) {
+      return
+    }
+    if (this.playfield.animating) {
+      this.wasAnimating = true
+    } else if (this.wasAnimating) {
+      this.nextFall = Date.now() + this.playfield.fallRate
+      this.wasAnimating = false
+    }
+    if (!this.wasAnimating) {
+      this.applyGravity()
+    }
+  }
+
+  togglePaused() {
+    this.paused = !this.paused
+    const time = Date.now()
+    if (this.paused) {
+      const remaining = this.nextFall - time
+      const remainingAfterPaused = remaining >= 0 ? remaining : 0
+    } else {
+      this.nextFall = time + this.remainingAfterPaused
+    }
+  }
+
+  applyGravity() {
+    const time = Date.now()
+    if (time >= this.nextFall) {
+      this.nextFall = time + this.playfield.fallRate
+      this.handlePlayerFalling()
+    }
+  }
+
+  handlePlayerFalling() {
+    if (this.playerIsFalling) {
+      return
+    }
+    this.playerIsFalling = true
+    const ableToMove = this.playfield.fallDown()
+    if (!ableToMove && this.playfield.onFloor) {
+      this.nextFall = this.playfield.endOfLock
+      // this.sidebar.nextPlayer = this.playfield.nextPlayer
+    }
+    this.playerIsFalling = false
   }
 }

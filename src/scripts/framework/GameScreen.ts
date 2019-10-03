@@ -8,5 +8,5 @@ export abstract class GameScreen {
     return this.painter.canvas
   }
 
-  update?: (dt: number) => void
+  update?(dt: number): void
 }

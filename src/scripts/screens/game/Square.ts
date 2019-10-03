@@ -1,22 +1,33 @@
 import { ColorType, ShapeColors } from "./colors"
 
+type SquareProps = {
+  row: number
+  column: number
+  color?: ColorType
+}
+
 export class Square {
   row: number
   column: number
   color: ColorType
 
-  constructor(
-    row: number,
-    column: number,
-    color: ColorType = ShapeColors.DEFAULT_SQUARE_COLOR
-  ) {
+  constructor({
+    row,
+    column,
+    color = ShapeColors.DEFAULT_SQUARE_COLOR,
+  }: SquareProps) {
     this.row = row
     this.column = column
     this.color = color
   }
 
   copy(override: Partial<Square> = {}) {
-    return { ...this, ...override }
+    const props = Object.assign(
+      Object.assign(Object.create(Object.getPrototypeOf(this)), this),
+      override
+    )
+
+    return new Square(props)
   }
 
   toString() {
