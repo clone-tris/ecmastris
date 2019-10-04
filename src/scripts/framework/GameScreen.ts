@@ -1,7 +1,7 @@
 import { GraphicsPainter } from "./GraphicsPainter"
 
 export abstract class GameScreen {
-  abstract paint: () => void
+  abstract paint(): void
   abstract painter: GraphicsPainter
 
   canvas() {
@@ -9,5 +9,7 @@ export abstract class GameScreen {
   }
 
   update(dt: number) {}
-  keydown = (e: any) => {}
+  keydown = (e: KeyboardEvent) => {}
+
+  unload() {}
 }

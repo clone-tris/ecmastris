@@ -10,7 +10,7 @@ export class Screen extends GameScreen {
     this.painter = new Painter({ width, height })
     this.nextPlayer = nextPlayer
   }
-  paint = () => {
+  paint() {
     this.painter.drawBackground()
     this.painter.drawShape(this.nextPlayer, 1, 1)
     this.painter.drawLevel()

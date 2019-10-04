@@ -1,6 +1,5 @@
-import { GraphicsPainter } from "../../../framework/GraphicsPainter"
 import { Painter as PlayfieldPainter } from "../playfield/Painter"
-import { ShapeColors, UIColors } from "../colors"
+import { UIColors } from "../colors"
 import { Config } from "../config"
 import { Rectangle } from "../../../framework/utils/Rectangle"
 import { Score } from "../Score"

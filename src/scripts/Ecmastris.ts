@@ -3,14 +3,14 @@ import "../styles/style.css"
 
 import { GameConfig } from "./GameConfig"
 import { Game as GameFactory } from "./framework/Game"
-import { Screen } from "./screens/game/Screen"
+import { LoadingScreen } from "./screens/loading/LoadingScreen"
 const { CANVAS_WIDTH, CANVAS_HEIGHT } = GameConfig
 
-export const Game = new GameFactory({
+export const Ecmastris = new GameFactory({
   width: CANVAS_WIDTH,
   height: CANVAS_HEIGHT,
   canvas: "#canvas",
-  screen: Screen,
+  screen: LoadingScreen,
 })
 
-Game.loop()
+Ecmastris.start()

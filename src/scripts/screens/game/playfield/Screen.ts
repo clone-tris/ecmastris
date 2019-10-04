@@ -32,15 +32,14 @@ export class Screen extends GameScreen {
     this.spawnPlayer()
   }
 
-  paint = () => {
+  paint() {
     this.painter.drawBackground()
     this.painter.drawShape(this.player)
     this.painter.drawShape(this.opponent)
   }
 
-  gameOver() {
-    console.log("Show game over screen")
-    this.gameEnded = true
+  isGameOver() {
+    return this.gameEnded
   }
 
   eatPlayer() {
@@ -135,7 +134,7 @@ export class Screen extends GameScreen {
     this.eatPlayer()
     this.spawnPlayer()
     if (this.player.collidesWith(this.opponent)) {
-      this.gameOver()
+      this.gameEnded = true
     }
   }
 

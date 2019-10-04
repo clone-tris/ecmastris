@@ -31,10 +31,16 @@ export class Game {
     this.height = canvas.height = height
     this.screen = new StartScreen()
     this.lastFrameTimeMs = Date.now()
-    window.addEventListener("keydown", this.screen.keydown, false)
+    window.addEventListener(
+      "keydown",
+      (e: KeyboardEvent) => {
+        this.screen.keydown(e)
+      },
+      false
+    )
   }
 
-  redraw = () => {
+  redraw() {
     const beforeUpdate = Date.now()
     const dt = beforeUpdate - this.lastFrameTimeMs
     if (this.screen.update && typeof this.screen.update === "function") {
@@ -47,17 +53,25 @@ export class Game {
     return afterPaint - beforeUpdate
   }
 
-  loop = () => {
+  loop() {
     if (!this.running) {
       return
     }
     const redrawDuration = this.redraw()
     const sleepDuration = this.FRAME_SIZE - redrawDuration
-
     if (sleepDuration <= 0) {
       this.loop()
     } else {
-      setTimeout(this.loop, sleepDuration)
+      setTimeout(this.loop.bind(this), sleepDuration)
     }
+  }
+
+  start() {
+    this.loop()
+  }
+
+  useScreen(screenClass: { new (): GameScreen }) {
+    this.screen.unload()
+    this.screen = new screenClass()
   }
 }

@@ -4,8 +4,10 @@ import { Screen as Playfield } from "./playfield/Screen"
 import { Screen as Sidebar } from "./sidebar/Screen"
 import { Config } from "./config"
 import { GameConfig } from "../../GameConfig"
+import { Ecmastris } from "../../Ecmastris"
+import { GameOverScreen } from "../over/GameOverScreen"
 
-export class Screen implements GameScreen {
+export class MainScreen extends GameScreen {
   painter = new Painter({
     width: GameConfig.CANVAS_WIDTH,
     height: GameConfig.CANVAS_HEIGHT,
@@ -22,7 +24,7 @@ export class Screen implements GameScreen {
   paused = false
   remainingAfterPaused = 0
 
-  paint = () => {
+  paint() {
     this.playfield.paint()
     this.sidebar.paint()
   }
@@ -49,9 +51,8 @@ export class Screen implements GameScreen {
 
   keydown = (e: KeyboardEvent) => {
     if (this.paused) {
-      switch (e.code) {
-        case "KeyP":
-          this.togglePaused()
+      if ("KeyP") {
+        this.togglePaused()
       }
     } else {
       switch (e.code) {
@@ -85,7 +86,7 @@ export class Screen implements GameScreen {
     const time = Date.now()
     if (this.paused) {
       const remaining = this.nextFall - time
-      const remainingAfterPaused = remaining >= 0 ? remaining : 0
+      this.remainingAfterPaused = remaining >= 0 ? remaining : 0
     } else {
       this.nextFall = time + this.remainingAfterPaused
     }
@@ -105,6 +106,9 @@ export class Screen implements GameScreen {
     }
     this.playerIsFalling = true
     const ableToMove = this.playfield.fallDown()
+    if (!ableToMove && this.playfield.isGameOver()) {
+      Ecmastris.useScreen(GameOverScreen)
+    }
     if (!ableToMove && this.playfield.onFloor) {
       this.nextFall = this.playfield.endOfLock
       this.sidebar.nextPlayer = this.playfield.nextPlayer
