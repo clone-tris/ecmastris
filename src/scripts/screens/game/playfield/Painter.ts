@@ -70,6 +70,7 @@ export class Painter extends GraphicsPainter {
     }
     this.ctx.stroke()
   }
+
   drawSquareAt(row: number, column: number, color: ColorType) {
     this.drawTetrominoSquare(
       column * Config.SQUARE_WIDTH,
@@ -77,14 +78,17 @@ export class Painter extends GraphicsPainter {
       color
     )
   }
+
   drawTetrominoSquare(x: number, y: number, backgroundColor: ColorType) {
+    // background
     this.ctx.fillStyle = backgroundColor
     this.ctx.fillRect(x, y, Config.SQUARE_WIDTH, Config.SQUARE_WIDTH)
 
+    // borders
     this.ctx.beginPath()
     this.ctx.fillStyle = ShapeColors.BORDER_SIDE
 
-    // left
+    // left border
     this.ctx.moveTo(x, y)
     this.ctx.lineTo(
       x + Config.SQUARE_BORDER_WIDTH,
@@ -96,7 +100,7 @@ export class Painter extends GraphicsPainter {
     )
     this.ctx.lineTo(x, y + Config.SQUARE_WIDTH)
 
-    // right
+    // right border
     this.ctx.moveTo(x + Config.SQUARE_WIDTH, y)
     this.ctx.lineTo(
       x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
@@ -110,6 +114,7 @@ export class Painter extends GraphicsPainter {
 
     this.ctx.fill()
 
+    // top border
     this.ctx.beginPath()
     this.ctx.fillStyle = ShapeColors.BORDER_TOP
 
@@ -125,6 +130,7 @@ export class Painter extends GraphicsPainter {
     this.ctx.lineTo(x + Config.SQUARE_WIDTH, y)
     this.ctx.fill()
 
+    // bottom border
     this.ctx.beginPath()
     this.ctx.fillStyle = ShapeColors.BORDER_BOTTOM
 
