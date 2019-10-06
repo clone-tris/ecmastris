@@ -1,11 +1,33 @@
-import { GraphicsPainter } from "../../../framework/GraphicsPainter"
+import {
+  GraphicsPainter,
+  GraphicsPainterProps,
+} from "../../../framework/GraphicsPainter"
 import { ColorType, ShapeColors, UIColors } from "../colors"
 import { Rectangle } from "../../../framework/utils/Rectangle"
 import { Config } from "../config"
 import { Shape } from "../Shape"
 import { GameConfig } from "../../../GameConfig"
 
+type PlayfieldProps = {
+  customGeometry?: GeometryConfigType
+} & GraphicsPainterProps
+
+type GeometryConfigType = {
+  SQUARE_WIDTH: number
+  SQUARE_BORDER_WIDTH: number
+}
+
 export class Painter extends GraphicsPainter {
+  geometryConfig: GeometryConfigType
+  constructor({
+    width,
+    height,
+    customGeometry = {} as GeometryConfigType,
+  }: PlayfieldProps) {
+    super({ width, height })
+    this.geometryConfig = { ...Config, ...customGeometry }
+  }
+
   drawBackground() {
     this.clear()
     this.drawGuide()
@@ -28,10 +50,10 @@ export class Painter extends GraphicsPainter {
     if (GameConfig.DEBUG_GRAPHICS) {
       this.ctx.strokeStyle = ShapeColors.BLUE
       this.ctx.strokeRect(
-        column * Config.SQUARE_WIDTH,
-        row * Config.SQUARE_WIDTH,
-        shape.width * Config.SQUARE_WIDTH,
-        shape.height * Config.SQUARE_WIDTH
+        column * this.geometryConfig.SQUARE_WIDTH,
+        row * this.geometryConfig.SQUARE_WIDTH,
+        shape.width * this.geometryConfig.SQUARE_WIDTH,
+        shape.height * this.geometryConfig.SQUARE_WIDTH
       )
 
       this.ctx.stroke()
@@ -39,12 +61,12 @@ export class Painter extends GraphicsPainter {
   }
 
   drawGuide(bounds = new Rectangle(0, 0, this.width, this.height)) {
-    const puzzleHeight = bounds.height / Config.SQUARE_WIDTH
-    const puzzleWidth = bounds.width / Config.SQUARE_WIDTH
+    const puzzleHeight = bounds.height / this.geometryConfig.SQUARE_WIDTH
+    const puzzleWidth = bounds.width / this.geometryConfig.SQUARE_WIDTH
 
     this.ctx.beginPath()
     for (let i = 0; i <= puzzleHeight + 1; i++) {
-      const y = bounds.x + i * Config.SQUARE_WIDTH
+      const y = bounds.x + i * this.geometryConfig.SQUARE_WIDTH
       this.drawLine(
         bounds.x,
         y,
@@ -57,7 +79,7 @@ export class Painter extends GraphicsPainter {
     }
 
     for (let i = 0; i <= puzzleWidth + 1; i++) {
-      const x = bounds.y + i * Config.SQUARE_WIDTH
+      const x = bounds.y + i * this.geometryConfig.SQUARE_WIDTH
       this.drawLine(
         x,
         bounds.y,
@@ -73,8 +95,8 @@ export class Painter extends GraphicsPainter {
 
   drawSquareAt(row: number, column: number, color: ColorType) {
     this.drawTetrominoSquare(
-      column * Config.SQUARE_WIDTH,
-      row * Config.SQUARE_WIDTH,
+      column * this.geometryConfig.SQUARE_WIDTH,
+      row * this.geometryConfig.SQUARE_WIDTH,
       color
     )
   }
@@ -82,7 +104,12 @@ export class Painter extends GraphicsPainter {
   drawTetrominoSquare(x: number, y: number, backgroundColor: ColorType) {
     // background
     this.ctx.fillStyle = backgroundColor
-    this.ctx.fillRect(x, y, Config.SQUARE_WIDTH, Config.SQUARE_WIDTH)
+    this.ctx.fillRect(
+      x,
+      y,
+      this.geometryConfig.SQUARE_WIDTH,
+      this.geometryConfig.SQUARE_WIDTH
+    )
 
     // borders
     this.ctx.beginPath()
@@ -91,26 +118,37 @@ export class Painter extends GraphicsPainter {
     // left border
     this.ctx.moveTo(x, y)
     this.ctx.lineTo(
-      x + Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_BORDER_WIDTH
+      x + this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y + this.geometryConfig.SQUARE_BORDER_WIDTH
     )
     this.ctx.lineTo(
-      x + Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+      x + this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH
     )
-    this.ctx.lineTo(x, y + Config.SQUARE_WIDTH)
+    this.ctx.lineTo(x, y + this.geometryConfig.SQUARE_WIDTH)
 
     // right border
-    this.ctx.moveTo(x + Config.SQUARE_WIDTH, y)
+    this.ctx.moveTo(x + this.geometryConfig.SQUARE_WIDTH, y)
     this.ctx.lineTo(
-      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_BORDER_WIDTH
+      x +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y + this.geometryConfig.SQUARE_BORDER_WIDTH
     )
     this.ctx.lineTo(
-      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+      x +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH
     )
-    this.ctx.lineTo(x + Config.SQUARE_WIDTH, y + Config.SQUARE_WIDTH)
+    this.ctx.lineTo(
+      x + this.geometryConfig.SQUARE_WIDTH,
+      y + this.geometryConfig.SQUARE_WIDTH
+    )
 
     this.ctx.fill()
 
@@ -120,30 +158,41 @@ export class Painter extends GraphicsPainter {
 
     this.ctx.moveTo(x, y)
     this.ctx.lineTo(
-      x + Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_BORDER_WIDTH
+      x + this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y + this.geometryConfig.SQUARE_BORDER_WIDTH
     )
     this.ctx.lineTo(
-      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_BORDER_WIDTH
+      x +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y + this.geometryConfig.SQUARE_BORDER_WIDTH
     )
-    this.ctx.lineTo(x + Config.SQUARE_WIDTH, y)
+    this.ctx.lineTo(x + this.geometryConfig.SQUARE_WIDTH, y)
     this.ctx.fill()
 
     // bottom border
     this.ctx.beginPath()
     this.ctx.fillStyle = ShapeColors.BORDER_BOTTOM
 
-    this.ctx.moveTo(x, y + Config.SQUARE_WIDTH)
+    this.ctx.moveTo(x, y + this.geometryConfig.SQUARE_WIDTH)
     this.ctx.lineTo(
-      x + Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+      x + this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH
     )
     this.ctx.lineTo(
-      x + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH,
-      y + Config.SQUARE_WIDTH - Config.SQUARE_BORDER_WIDTH
+      x +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH,
+      y +
+        this.geometryConfig.SQUARE_WIDTH -
+        this.geometryConfig.SQUARE_BORDER_WIDTH
     )
-    this.ctx.lineTo(x + Config.SQUARE_WIDTH, y + Config.SQUARE_WIDTH)
+    this.ctx.lineTo(
+      x + this.geometryConfig.SQUARE_WIDTH,
+      y + this.geometryConfig.SQUARE_WIDTH
+    )
 
     this.ctx.fill()
   }

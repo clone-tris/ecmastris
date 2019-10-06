@@ -38,6 +38,10 @@ export class Game {
       },
       false
     )
+    const { top: canvasTop, left: canvasLeft } = canvas.getBoundingClientRect()
+    canvas.addEventListener("click", (e: MouseEvent) => {
+      this.screen.mouseclick(e.clientX - canvasLeft, e.clientY - canvasTop)
+    })
   }
 
   redraw() {

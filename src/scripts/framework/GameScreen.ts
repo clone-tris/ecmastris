@@ -10,6 +10,10 @@ export abstract class GameScreen {
 
   update(dt: number) {}
   keydown = (e: KeyboardEvent) => {}
+  mousemove = (x: number, y: number) => {}
+  mouseclick = (x: number, y: number) => {
+    console.log(x, y)
+  }
 
   unload() {}
 }

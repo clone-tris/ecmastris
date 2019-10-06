@@ -4,7 +4,7 @@ import { ColorType, ShapeColors } from "./colors"
 import { ObjectType } from "../../types"
 
 type ShapeProps = {
-  grid: Square[]
+  grid?: Square[]
   row?: number
   column?: number
   color?: ColorType
