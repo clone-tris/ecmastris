@@ -27,26 +27,26 @@ export class Painter extends PlayfieldPainter {
   }
 
   drawLevel() {
-    this.drawText(
-      `Level : ${Score.level}`,
-      Config.SQUARE_WIDTH / 2,
-      Config.SQUARE_WIDTH * 4
-    )
+    this.drawText({
+      text: `Level : ${Score.level}`,
+      x: Config.SQUARE_WIDTH / 2,
+      y: Config.SQUARE_WIDTH * 4,
+    })
   }
 
   drawLinesCleared() {
-    this.drawText(
-      `Cleared : ${Score.linesCleared}`,
-      Config.SQUARE_WIDTH / 2,
-      Config.SQUARE_WIDTH * 5
-    )
+    this.drawText({
+      text: `Cleared : ${Score.linesCleared}`,
+      x: Config.SQUARE_WIDTH / 2,
+      y: Config.SQUARE_WIDTH * 5,
+    })
   }
 
   drawScore() {
-    this.drawText(
-      `Score : ${Score.total}`,
-      Config.SQUARE_WIDTH / 2,
-      Config.SQUARE_WIDTH * 6
-    )
+    this.drawText({
+      text: `Score : ${Score.total}`,
+      x: Config.SQUARE_WIDTH / 2,
+      y: Config.SQUARE_WIDTH * 6,
+    })
   }
 }

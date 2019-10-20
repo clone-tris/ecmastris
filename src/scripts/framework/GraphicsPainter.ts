@@ -38,21 +38,36 @@ export class GraphicsPainter {
     }
   }
 
-  drawText(
-    text: string,
-    x: number,
-    y: number,
-    fontSize: number = 17,
-    color: ColorType = UIColors.WHITE_TEXT
-  ) {
+  drawText({
+    text,
+    x,
+    y,
+    fontSize = 17,
+    fontFamily = `"Courier New"`,
+    color = UIColors.WHITE_TEXT,
+  }: {
+    text: string
+    x: number
+    y: number
+    fontSize?: number
+    fontFamily?: string
+    color?: ColorType
+  }) {
     this.ctx.fillStyle = color
-    this.ctx.font = `${fontSize}px "Courier New"`
+    this.ctx.font = `${fontSize}px ${fontFamily}`
     this.ctx.fillText(text, x, y + fontSize)
   }
 
   drawButton(button: Button, color: ColorType = ShapeColors.CYAN) {
     this.ctx.strokeStyle = color
     this.ctx.strokeRect(button.x, button.y, button.width, button.height)
-    this.drawText(button.text, button.tx, button.ty, 16, color)
+    this.drawText({
+      text: button.text,
+      x: button.tx,
+      y: button.ty,
+      fontSize: button.fontSize,
+      fontFamily: button.fontFamily,
+      color,
+    })
   }
 }
