@@ -1,28 +1,36 @@
 import { GameScreen } from "../../framework/GameScreen"
 import { Painter } from "./Painter"
-import { GameConfig } from "../../GameConfig"
+import { GlobalConfig } from "../../GlobalConfig"
 import { Ecmastris } from "../../Ecmastris"
-import { MainScreen } from "../game/MainScreen"
-import { Config } from "../game/config"
-import { Shape } from "../game/Shape"
-import { Square } from "../game/Square"
+import { MainScreen } from "../main/MainScreen"
+import { Config } from "../main/config"
+import { Shape } from "../main/Shape"
+import { Square } from "../main/Square"
 import { graphicGrid } from "./graphic"
+import { Button } from "../../framework/components/Button"
 
-export class LoadingScreen extends GameScreen {
+export class MenuScreen extends GameScreen {
   painter = new Painter({
-    width: GameConfig.CANVAS_WIDTH,
-    height: GameConfig.CANVAS_HEIGHT,
+    width: GlobalConfig.CANVAS_WIDTH,
+    height: GlobalConfig.CANVAS_HEIGHT,
   })
 
   graphic = new Shape({
-    width: (GameConfig.CANVAS_WIDTH / Config.SQUARE_WIDTH) | 0,
-    height: (GameConfig.CANVAS_HEIGHT / Config.SQUARE_WIDTH) | 0,
+    width: (GlobalConfig.CANVAS_WIDTH / Config.SQUARE_WIDTH) | 0,
+    height: (GlobalConfig.CANVAS_HEIGHT / Config.SQUARE_WIDTH) | 0,
     grid: graphicGrid,
+  })
+
+  startButton = new Button({
+    x: 6 * Config.SQUARE_WIDTH,
+    y: 17 * Config.SQUARE_WIDTH,
+    text: "Start (S)"
   })
 
   paint() {
     this.painter.drawBackground()
     this.painter.drawShape(this.graphic)
+    this.painter.drawButton(this.startButton)
   }
 
   keydown = (e: KeyboardEvent) => {

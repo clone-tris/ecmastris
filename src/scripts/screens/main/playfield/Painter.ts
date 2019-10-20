@@ -3,10 +3,10 @@ import {
   GraphicsPainterProps,
 } from "../../../framework/GraphicsPainter"
 import { ColorType, ShapeColors, UIColors } from "../colors"
-import { Rectangle } from "../../../framework/utils/Rectangle"
+import { Rectangle } from "../../../framework/components/Rectangle"
 import { Config } from "../config"
 import { Shape } from "../Shape"
-import { GameConfig } from "../../../GameConfig"
+import { GlobalConfig } from "../../../GlobalConfig"
 
 type PlayfieldProps = {
   customGeometry?: GeometryConfigType
@@ -47,7 +47,7 @@ export class Painter extends GraphicsPainter {
       this.drawSquareAt(row + square.row, column + square.column, square.color)
     )
 
-    if (GameConfig.DEBUG_GRAPHICS) {
+    if (GlobalConfig.DEBUG_GRAPHICS) {
       this.ctx.strokeStyle = ShapeColors.BLUE
       this.ctx.strokeRect(
         column * this.geometryConfig.SQUARE_WIDTH,

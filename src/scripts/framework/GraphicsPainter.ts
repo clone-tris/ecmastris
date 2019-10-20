@@ -1,4 +1,5 @@
-import { ColorType, UIColors } from "../screens/game/colors"
+import { ColorType, ShapeColors, UIColors } from "../screens/main/colors"
+import { Button } from "./components/Button"
 
 export type GraphicsPainterProps = {
   width: number
@@ -47,5 +48,11 @@ export class GraphicsPainter {
     this.ctx.fillStyle = color
     this.ctx.font = `${fontSize}px "Courier New"`
     this.ctx.fillText(text, x, y + fontSize)
+  }
+
+  drawButton(button: Button, color: ColorType = ShapeColors.CYAN) {
+    this.ctx.strokeStyle = color
+    this.ctx.strokeRect(button.x, button.y, button.width, button.height)
+    this.drawText(button.text, button.tx, button.ty, 16, color)
   }
 }

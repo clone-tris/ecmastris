@@ -1,6 +1,6 @@
 import { GraphicsPainter } from "../../framework/GraphicsPainter"
 import { Config } from "./config"
-import { GameConfig } from "../../GameConfig"
+import { GlobalConfig } from "../../GlobalConfig"
 
 export class Painter extends GraphicsPainter {
   stitch = (
@@ -12,14 +12,14 @@ export class Painter extends GraphicsPainter {
       0,
       0,
       Config.SIDEBAR_WIDTH,
-      GameConfig.CANVAS_HEIGHT
+      GlobalConfig.CANVAS_HEIGHT
     )
     this.ctx.drawImage(
       playfieldBuffer,
       Config.SIDEBAR_WIDTH,
       0,
       Config.WAR_ZONE_WIDTH,
-      GameConfig.CANVAS_HEIGHT
+      GlobalConfig.CANVAS_HEIGHT
     )
   }
 }

@@ -1,4 +1,4 @@
-import { Square } from "../game/Square"
+import { Square } from "../main/Square"
 
 export const graphicGrid = [
   new Square({ row: 1, column: 1 }),

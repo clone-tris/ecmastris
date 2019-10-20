@@ -3,19 +3,19 @@ import { GameScreen } from "../../framework/GameScreen"
 import { Screen as Playfield } from "./playfield/Screen"
 import { Screen as Sidebar } from "./sidebar/Screen"
 import { Config } from "./config"
-import { GameConfig } from "../../GameConfig"
+import { GlobalConfig } from "../../GlobalConfig"
 import { Ecmastris } from "../../Ecmastris"
 import { GameOverScreen } from "../over/GameOverScreen"
 
 export class MainScreen extends GameScreen {
   painter = new Painter({
-    width: GameConfig.CANVAS_WIDTH,
-    height: GameConfig.CANVAS_HEIGHT,
+    width: GlobalConfig.CANVAS_WIDTH,
+    height: GlobalConfig.CANVAS_HEIGHT,
   })
-  playfield = new Playfield(Config.WAR_ZONE_WIDTH, GameConfig.CANVAS_HEIGHT)
+  playfield = new Playfield(Config.WAR_ZONE_WIDTH, GlobalConfig.CANVAS_HEIGHT)
   sidebar = new Sidebar(
     Config.SIDEBAR_WIDTH,
-    GameConfig.CANVAS_HEIGHT,
+    GlobalConfig.CANVAS_HEIGHT,
     this.playfield.nextPlayer
   )
   nextFall = 0

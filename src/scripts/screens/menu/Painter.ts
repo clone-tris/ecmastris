@@ -1,6 +1,6 @@
 import { GraphicsPainter } from "../../framework/GraphicsPainter"
-import { Painter as PlayfieldPainter } from "../game/playfield/Painter"
-import { UIColors } from "../game/colors"
+import { Painter as PlayfieldPainter } from "../main/playfield/Painter"
+import { UIColors } from "../main/colors"
 
 export class Painter extends PlayfieldPainter {
   drawBackground() {

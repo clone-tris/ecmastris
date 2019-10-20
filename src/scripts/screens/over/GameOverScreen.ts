@@ -1,13 +1,13 @@
 import { GameScreen } from "../../framework/GameScreen"
 import { Painter } from "./Painter"
-import { GameConfig } from "../../GameConfig"
+import { GlobalConfig } from "../../GlobalConfig"
 import { Ecmastris } from "../../Ecmastris"
-import { MainScreen } from "../game/MainScreen"
+import { MainScreen } from "../main/MainScreen"
 
 export class GameOverScreen extends GameScreen {
   painter = new Painter({
-    width: GameConfig.CANVAS_WIDTH,
-    height: GameConfig.CANVAS_HEIGHT,
+    width: GlobalConfig.CANVAS_WIDTH,
+    height: GlobalConfig.CANVAS_HEIGHT,
   })
   paint() {
     this.painter.clear()

@@ -1,7 +1,7 @@
 import { Painter as PlayfieldPainter } from "../playfield/Painter"
 import { UIColors } from "../colors"
 import { Config } from "../config"
-import { Rectangle } from "../../../framework/utils/Rectangle"
+import { Rectangle } from "../../../framework/components/Rectangle"
 import { Score } from "../Score"
 
 export class Painter extends PlayfieldPainter {
