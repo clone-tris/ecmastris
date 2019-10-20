@@ -77,6 +77,9 @@ export class MainScreen extends GameScreen {
         case "KeyP":
           this.togglePaused()
           break
+        case "KeyO":
+          this.loseTheGame()
+          break
       }
     }
   }
@@ -107,12 +110,16 @@ export class MainScreen extends GameScreen {
     this.playerIsFalling = true
     const ableToMove = this.playfield.fallDown()
     if (!ableToMove && this.playfield.isGameOver()) {
-      Ecmastris.useScreen(GameOverScreen)
+      this.loseTheGame()
     }
     if (!ableToMove && this.playfield.onFloor) {
       this.nextFall = this.playfield.endOfLock
       this.sidebar.nextPlayer = this.playfield.nextPlayer
     }
     this.playerIsFalling = false
+  }
+
+  loseTheGame() {
+    Ecmastris.useScreen(GameOverScreen)
   }
 }

@@ -17,6 +17,7 @@ export class Game {
   screen: GameScreen
   ctx: CanvasRenderingContext2D
   canvas: HTMLCanvasElement
+  screens = new Map<{ new (): GameScreen }, GameScreen>()
 
   constructor({
     width,
@@ -77,5 +78,6 @@ export class Game {
   useScreen(screenClass: { new (): GameScreen }) {
     this.screen.unload()
     this.screen = new screenClass()
+    this.screens.set(screenClass, this.screen)
   }
 }
