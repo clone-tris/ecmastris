@@ -24,7 +24,7 @@ export class MenuScreen extends GameScreen {
   startButton = new Button({
     x: 6 * Config.SQUARE_WIDTH,
     y: 17 * Config.SQUARE_WIDTH,
-    text: "Start (S)"
+    text: "Start (S)",
   })
 
   paint() {
@@ -36,10 +36,15 @@ export class MenuScreen extends GameScreen {
   keydown = (e: KeyboardEvent) => {
     if (e.code === "KeyS") {
       Ecmastris.useScreen(MainScreen)
+      return
     }
   }
 
   mouseclick = (x: number, y: number) => {
+    if (this.startButton.contains(x, y)) {
+      Ecmastris.useScreen(MainScreen)
+      return
+    }
     const targetRow = (y / Config.SQUARE_WIDTH) | 0
     const targetColumn = (x / Config.SQUARE_WIDTH) | 0
     const startingSize = this.graphic.grid.length

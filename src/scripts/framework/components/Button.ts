@@ -36,4 +36,13 @@ export class Button {
 
     this.bounds = new Rectangle(x, y, this.width, this.height)
   }
+
+  contains(x: number, y: number): boolean {
+    return (
+      x >= this.x &&
+      x <= this.x + this.width &&
+      y >= this.y &&
+      y <= this.y + this.height
+    )
+  }
 }
