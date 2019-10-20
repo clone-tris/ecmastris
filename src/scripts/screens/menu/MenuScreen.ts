@@ -37,10 +37,6 @@ export class MenuScreen extends GameScreen {
     if (e.code === "KeyS") {
       Ecmastris.useScreen(MainScreen)
     }
-
-    if (e.code === "KeyL") {
-      console.log(JSON.stringify(this.graphic.grid))
-    }
   }
 
   mouseclick = (x: number, y: number) => {
