@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.4"
   },
   "scripts": {
     "start": "parcel serve -d build src/view/*.html",
@@ -28,6 +28,6 @@
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.6.2",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.4"
   }
 }
