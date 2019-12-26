@@ -5,6 +5,7 @@ import { Ecmastris } from "../../Ecmastris"
 import { MainScreen } from "../main/MainScreen"
 import { Button } from "../../framework/components/Button"
 import { Config } from "../main/config"
+import { resetScore } from "../main/Score"
 
 export class GameOverScreen extends GameScreen {
   painter = new Painter({
@@ -25,6 +26,7 @@ export class GameOverScreen extends GameScreen {
   }
 
   restart() {
+    resetScore()
     Ecmastris.useScreen(MainScreen)
   }
 
