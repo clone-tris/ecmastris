@@ -6,6 +6,7 @@ import { Config } from "./config"
 import { GlobalConfig } from "../../GlobalConfig"
 import { Ecmastris } from "../../Ecmastris"
 import { GameOverScreen } from "../over/GameOverScreen"
+import { resetScore } from "./Score"
 
 export class MainScreen extends GameScreen {
   painter = new Painter({
@@ -23,6 +24,11 @@ export class MainScreen extends GameScreen {
   playerIsFalling = false
   paused = false
   remainingAfterPaused = 0
+
+  constructor() {
+    super()
+    resetScore()
+  }
 
   paint() {
     this.playfield.paint()
@@ -69,7 +75,7 @@ export class MainScreen extends GameScreen {
           this.playfield.moveRight()
           break
         case "KeyR":
-          this.playfield.restart()
+          this.restart()
           break
         case "KeyI":
           this.playfield.inspect = true
@@ -82,6 +88,10 @@ export class MainScreen extends GameScreen {
           break
       }
     }
+  }
+
+  restart() {
+    Ecmastris.useScreen(MainScreen)
   }
 
   togglePaused() {
@@ -98,6 +108,7 @@ export class MainScreen extends GameScreen {
   applyGravity() {
     const time = Date.now()
     if (time >= this.nextFall) {
+      console.log(this.playfield.fallRate)
       this.nextFall = time + this.playfield.fallRate
       this.handlePlayerFalling()
     }

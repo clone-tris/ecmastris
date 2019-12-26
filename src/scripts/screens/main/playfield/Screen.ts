@@ -81,12 +81,6 @@ export class Screen extends GameScreen {
     Score.level = (Score.linesCleared / 10) | 0
   }
 
-  restart() {
-    this.opponent.eraseGrid()
-    this.player = randomTetromino()
-    resetScore()
-  }
-
   spawnPlayer() {
     this.nextPlayer.row -= this.nextPlayer.height
     this.nextPlayer.column =
