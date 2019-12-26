@@ -108,7 +108,6 @@ export class MainScreen extends GameScreen {
   applyGravity() {
     const time = Date.now()
     if (time >= this.nextFall) {
-      console.log(this.playfield.fallRate)
       this.nextFall = time + this.playfield.fallRate
       this.handlePlayerFalling()
     }
