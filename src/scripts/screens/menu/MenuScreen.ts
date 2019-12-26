@@ -30,7 +30,7 @@ export class MenuScreen extends GameScreen {
   paint() {
     this.painter.drawBackground()
     this.painter.drawShape(this.graphic)
-    this.painter.drawButton(this.startButton)
+    this.painter.drawButton({ button: this.startButton })
   }
 
   keydown = (e: KeyboardEvent) => {

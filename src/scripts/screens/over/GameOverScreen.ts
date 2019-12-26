@@ -6,6 +6,7 @@ import { MainScreen } from "../main/MainScreen"
 import { Button } from "../../framework/components/Button"
 import { Config } from "../main/config"
 import { resetScore } from "../main/Score"
+import { ShapeColors, UIColors } from "../main/colors"
 
 export class GameOverScreen extends GameScreen {
   painter = new Painter({
@@ -22,7 +23,11 @@ export class GameOverScreen extends GameScreen {
   paint() {
     this.painter.drawMainScreen()
     this.painter.drawPopup()
-    this.painter.drawButton(this.restartButton)
+    this.painter.drawButton({
+      button: this.restartButton,
+      background: ShapeColors.CYAN,
+      color: UIColors.POPUP_BACKGROUND,
+    })
   }
 
   restart() {

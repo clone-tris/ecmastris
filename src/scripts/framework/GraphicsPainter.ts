@@ -59,7 +59,20 @@ export class GraphicsPainter {
   }
 
   // todo: make it so you can draw a button based on its center position instead of left and top
-  drawButton(button: Button, color: ColorType = ShapeColors.CYAN) {
+  drawButton({
+    button,
+    color = ShapeColors.CYAN,
+    background,
+  }: {
+    button: Button
+    color?: ColorType
+    background?: ColorType
+  }) {
+    if (background) {
+      this.ctx.fillStyle = background
+      this.ctx.fillRect(button.x, button.y, button.width, button.height)
+    }
+    this.ctx.lineWidth = 2
     this.ctx.strokeStyle = color
     this.ctx.strokeRect(button.x, button.y, button.width, button.height)
     this.drawText({
