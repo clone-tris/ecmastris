@@ -54,9 +54,7 @@ export class Game {
   redraw() {
     const beforeUpdate = Date.now()
     const dt = beforeUpdate - this.lastFrameTimeMs
-    if (this.screen.update && typeof this.screen.update === "function") {
-      this.screen.update(dt)
-    }
+    this.screen.update(dt)
     this.screen.paint()
     this.ctx.drawImage(this.screen.canvas(), 0, 0, this.width, this.height)
     const afterPaint = Date.now()
