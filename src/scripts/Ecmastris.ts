@@ -12,4 +12,3 @@ export const Ecmastris = new Game({
   screen: MenuScreen,
 })
 
-Ecmastris.start()

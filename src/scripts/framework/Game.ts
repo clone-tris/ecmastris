@@ -5,6 +5,7 @@ type GameProps = {
   height: number
   canvas: string
   screen: { new (): GameScreen }
+  start?: boolean
 }
 
 export class Game {
@@ -24,6 +25,7 @@ export class Game {
     height,
     canvas: canvasID,
     screen: StartScreen,
+    start = true,
   }: GameProps) {
     let canvas = document.querySelector<HTMLCanvasElement>(canvasID)!
     this.canvas = canvas
@@ -43,6 +45,10 @@ export class Game {
     canvas.addEventListener("click", (e: MouseEvent) => {
       this.screen.mouseclick(e.clientX - canvasLeft, e.clientY - canvasTop)
     })
+
+    if (start) {
+      this.start()
+    }
   }
 
   redraw() {
