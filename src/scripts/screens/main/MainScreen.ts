@@ -20,7 +20,6 @@ export class MainScreen extends GameScreen {
     this.playfield.nextPlayer
   )
   nextFall = 0
-  wasAnimating = false
   playerIsFalling = false
   paused = false
   remainingAfterPaused = 0
@@ -44,15 +43,7 @@ export class MainScreen extends GameScreen {
     if (this.paused || this.playfield.gameEnded) {
       return
     }
-    if (this.playfield.animating) {
-      this.wasAnimating = true
-    } else if (this.wasAnimating) {
-      this.nextFall = Date.now() + this.playfield.fallRate
-      this.wasAnimating = false
-    }
-    if (!this.wasAnimating) {
-      this.applyGravity()
-    }
+    this.applyGravity()
   }
 
   keydown = (e: KeyboardEvent) => {
@@ -66,7 +57,7 @@ export class MainScreen extends GameScreen {
           this.playfield.rotatePlayer()
           break
         case "KeyS":
-          this.handlePlayerFalling()
+          this.makePlayerFall()
           break
         case "KeyA":
           this.playfield.moveLeft()
@@ -109,11 +100,11 @@ export class MainScreen extends GameScreen {
     const time = Date.now()
     if (time >= this.nextFall) {
       this.nextFall = time + this.playfield.fallRate
-      this.handlePlayerFalling()
+      this.makePlayerFall()
     }
   }
 
-  handlePlayerFalling() {
+  makePlayerFall() {
     if (this.playerIsFalling) {
       return
     }
