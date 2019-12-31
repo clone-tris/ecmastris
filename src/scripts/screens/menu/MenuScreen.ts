@@ -45,6 +45,11 @@ export class MenuScreen extends GameScreen {
       Ecmastris.useScreen(MainScreen)
       return
     }
+
+    this.handleClickOnGrid(x, y)
+  }
+
+  handleClickOnGrid(x: number, y: number) {
     const targetRow = (y / Config.SQUARE_WIDTH) | 0
     const targetColumn = (x / Config.SQUARE_WIDTH) | 0
     const startingSize = this.graphic.grid.length
