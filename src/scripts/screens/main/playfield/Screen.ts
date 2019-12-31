@@ -13,7 +13,6 @@ export class Screen extends GameScreen {
   floorRate = 500
   onFloor = false
   endOfLock = 0
-  animating = false
   inspect = false
   gameEnded = false
 
