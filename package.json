@@ -1,6 +1,7 @@
 {
   "name": "ecmastris",
   "version": "0.1.0",
+  "license": "CC0 1.0 Universal",
   "private": true,
   "dependencies": {
     "parcel-bundler": "^1.12.4",
